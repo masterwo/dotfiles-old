@@ -36,8 +36,10 @@
 ! URxvt*cursorUnderline:                boolean
 ! URxvt*cursorBlink:                    boolean
 ! URxvt*pointerBlank:                   boolean
- URxvt*background:                     Black
- URxvt*foreground:                     White
+
+! URxvt*background:                     Black
+! URxvt*foreground:                     White
+
 ! URxvt*color0:                         color
 ! URxvt*color1:                         color
 ! URxvt*color2:                         color
@@ -141,7 +143,7 @@
 
 
 
- Molokai theme
+! Molokai theme
  URxvt*background: #101010
  URxvt*foreground: #d0d0d0
  URxvt*color0: #101010

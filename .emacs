@@ -1,12 +1,11 @@
+(put 'narrow-to-region 'disabled nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (wheatgrass)))
- '(ido-enable-flex-matching t)
- '(ido-everywhere t)
- '(ido-mode (quote both) nil (ido))
+ '(custom-enabled-themes (quote (wombat)))
+ '(custom-safe-themes (quote ("08851585c86abcf44bb1232bced2ae13bc9f6323aeda71adfa3791d6e7fea2b6" default)))
  '(menu-bar-mode nil)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -17,6 +16,7 @@
  ;; If there is more than one, they won't work right.
  )
 
+
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
@@ -26,15 +26,41 @@
 (package-initialize) ;; You might already have this line
 
 
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-*") 'er/contract-region)
+(require 'projectile)
+(projectile-global-mode)
+
+(require 'auto-complete-config)
+(ac-config-default)
+
+(require 'erefactor)
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (define-key emacs-lisp-mode-map "\C-c\C-v" erefactor-map)))
+
+(add-hook 'emacs-lisp-mode-hook 'erefactor-lazy-highlight-turn-on)
+(add-hook 'lisp-interaction-mode-hook 'erefactor-lazy-highlight-turn-on)
+
+;; Initiate vim-like keybindings on startup
+(require 'evil)
+(evil-mode 1)
+
+(require 'molokai-theme)
+
+;; Does aparently not work well with other themes like Molokai for example ;(
+(require 'powerline)
+(powerline-vim-theme)
 
 
-;; Select a nice colorscheme =)
-(color-theme-initialize)
-(color-theme-comidia)
+(require 'pretty-mode)
+(autoload 'js3-mode "js3" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+;; (add-hook 'js3-mode-hook
+;; 	  (lambda ()
+;; 	    (push '("function" . ?ƒ) prettify-symbols-alist)
+;; 	    (prettify-symbols-mode)))
 
-;; For auto-completion in elisp(and possibly everywhere else)
-(setq tab-always-indent 'complete)
-(add-to-list 'completion-styles 'initials t)
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(put 'scroll-left 'disabled nil)
