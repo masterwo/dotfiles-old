@@ -1,3 +1,5 @@
+alias e="vim"
+alias em="emacsclient -nw"
 export WORKON_HOME=~/Envs
 mkdir -p $WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
