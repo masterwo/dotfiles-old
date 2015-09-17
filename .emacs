@@ -37,6 +37,11 @@
                          ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+
+;; eieio is needs to be included before (package-initialize) for
+;; helm-ls-git to work
+(require 'eieio) ;; TODO Only necessary when emacs version is < 24.4
+
 (package-initialize)
 
 ;; function for downloading missing packages.
@@ -54,6 +59,13 @@
 ;; =================================================================
 (require-package 'molokai-theme)
 (require 'molokai-theme)
+
+;; =================================================================
+;; Emmet-mode (for HTML/XML coding)
+;; =================================================================
+(require-package 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 ;; =================================================================
 ;; Evil-mode: (settings related to evil)
@@ -148,6 +160,13 @@ scroll-step 1)
 (define-key evil-normal-state-map (kbd "C-d") (lambda ()
                         (interactive)
                         (evil-scroll-down nil)))
+
+
+
+(require-package 'helm-ls-git)
+(define-key evil-normal-state-map (kbd "C-p") (lambda ()
+                        (interactive)
+			(helm-ls-git-ls)))
 
 ;; =================================================================
 ;;Sessions (:mksession in Vim)
