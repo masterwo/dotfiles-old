@@ -44,5 +44,5 @@ function parse_git_dirty {
 		echo ""
 	fi
 }
-
-export PS1="\A \u \`parse_git_branch\` > "
+gitbranch=\`parse_git_branch\`
+export PS1="\u $gitbranch~> "
